@@ -1,0 +1,17 @@
+{
+  "name": "life",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "cli-table3": "^0.6.5",
+    "commander": "^15.0.0",
+    "consola": "^3.4.2",
+    "crypto": "^1.0.1"
+  }
+}
