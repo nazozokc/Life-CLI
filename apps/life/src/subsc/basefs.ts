@@ -3,7 +3,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "fs";
 import { homedir } from "os";
 import path from "path";
 
-export type SharedArgs = {
+export type Subsc = {
   id: number;
   name: string;
   price: number;
@@ -12,14 +12,9 @@ export type SharedArgs = {
   tags: string[];
 };
 
-const dir = path.join(
-  homedir(),
-  ".config",
-  "subscription-cli",
-  "subscription.json",
-);
+const dir = path.join(homedir(), ".life", "subsc", "subsc.jsonl");
 
-export const getSubscriptions = (): SharedArgs[] => {
+export const getSubscriptions = (): Subsc[] => {
   try {
     const result = readFileSync(dir, "utf-8");
     return JSON.parse(result).filter(Boolean);
@@ -28,14 +23,14 @@ export const getSubscriptions = (): SharedArgs[] => {
   }
 };
 
-export const writeSubscription = (SharedArgs: SharedArgs[]): void => {
+export const writeSubscription = (Subsc: Subsc[]): void => {
   mkdirSync(path.dirname(dir), { recursive: true });
-  const json = JSON.stringify(SharedArgs, null, 2);
+  const json = JSON.stringify(Subsc, null, 2);
   try {
     writeFileSync(dir, json, "utf-8");
     consola.success("done add subscription");
   } catch (error) {
-    consola.error("ファイルを作成することができませんでした");
+    consola.error(error);
   }
 };
 
@@ -45,7 +40,7 @@ export const deleteSubscription = (id: number) => {
   writeSubscription(filter);
 };
 
-export const tagsSubscription = (tags: string[]): SharedArgs[] => {
+export const tagsSubscription = (tags: string[]): Subsc[] => {
   const get = getSubscriptions();
   const output = get.filter((item) => tags.every((n) => item.tags.includes(n)));
   return output;
