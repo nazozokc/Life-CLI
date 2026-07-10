@@ -20,7 +20,8 @@ export const spreadTask = (get?: Task[]): void => {
       String(taskread.task),
       String(taskread.date),
       String(taskread.tags.join(" | ")),
-  };
- 
+    ]);
+  }
+  
   consola.log(table.toString());
 };
