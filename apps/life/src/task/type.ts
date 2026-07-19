@@ -7,5 +7,3 @@ export type Task = {
   date: "string";
   done: "boolean";
 };
-
-export const taskdir = `${homedir()}/.life/task`;

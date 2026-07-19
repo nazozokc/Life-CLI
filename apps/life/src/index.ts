@@ -5,9 +5,7 @@ import { version } from "node:os";
 const runCLI = () => {
   const program = new Command()
     .description("management life with CLI")
-    .version(version, `-v version`);
-
-  program.name("life");
+    .version("v0.1.2");
 
   // task
   const task = program.command("task");
