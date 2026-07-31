@@ -1,17 +1,12 @@
 import { Command } from "commander";
-import { consola } from "consola";
-import { version } from "node:os";
+import { taskcommand } from "./cli/task/index.ts";
+import { memocommand } from "./cli/memo/index.ts";
 
 const runCLI = () => {
-  const program = new Command()
-    .description("management life with CLI")
-    .version("v0.1.2");
-  // task
+  const program = new Command("life").description("CLI management to life");
 
-  const task = program.name("task");
-
-  task.command("add");
-  task.command("delete");
-  task.command("done");
-  task.command("list");
+  taskcommand(program);
+  memocommand(program);
 };
+
+runCLI();
