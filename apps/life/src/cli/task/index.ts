@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-export const taskcommand = (program: Command): void => {
+export const taskCommand = (program: Command): void => {
   const task = program.command("task");
 
   task.command("add");
