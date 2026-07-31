@@ -7,6 +7,8 @@ const runCLI = () => {
 
   taskCommand(program);
   memoCommand(program);
+
+  program.parse();
 };
 
 runCLI();

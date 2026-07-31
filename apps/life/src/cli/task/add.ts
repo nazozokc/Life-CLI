@@ -16,7 +16,7 @@ export const add = async (): Promise<void> => {
     message: "goal date",
   });
 
-  const task = readTask();
+  const task = await readTask();
   task.push({
     id: randomUUID(),
     head,
@@ -26,5 +26,5 @@ export const add = async (): Promise<void> => {
     createdAt: new Date(),
   });
 
-  await writeTask(get);
+  await writeTask(task);
 };
