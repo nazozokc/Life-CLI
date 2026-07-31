@@ -12,9 +12,9 @@ export const readTask = async (): Promise<Task[]> => {
     if (!file.endsWith(".json")) continue;
 
     const text = await readFile(join(dir, file), "utf-8");
-    const json = JSON.parse(text);
+    const parse = JSON.parse(text);
 
-    result.push(json);
+    result.push(parse);
   }
 
   return result;
