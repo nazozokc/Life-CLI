@@ -1,5 +1,5 @@
 import { checkbox } from "@inquirer/prompts";
-import { deletememo } from "../../memo/deletememo.ts";
+import { deleteMemo } from "../../memo/deletememo.ts";
 import { MEMO_DIR } from "../../constant/app.ts";
 import { readdir } from "node:fs/promises";
 import { consola } from "consola";
@@ -22,7 +22,7 @@ export const del = async (): Promise<void> => {
     });
 
     for (const file of selected) {
-      await deletememo(file);
+      await deleteMemo(file);
     }
   } catch (error) {
     consola.error(error);

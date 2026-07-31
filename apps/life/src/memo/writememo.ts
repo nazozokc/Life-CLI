@@ -3,7 +3,7 @@ import { MEMO_DIR } from "../constant/app.ts";
 import openEditor from "open-editor";
 import { join } from "node:path";
 
-export const writememo = async (filename: string): Promise<void> => {
+export const writeMemo = async (filename: string): Promise<void> => {
   await mkdir(MEMO_DIR, { recursive: true });
   const path = join(MEMO_DIR, `${filename}.md`);
 
