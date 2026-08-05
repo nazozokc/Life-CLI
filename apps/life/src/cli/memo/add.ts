@@ -1,4 +1,4 @@
-import { writeMemo } from "../../memo/writememo.ts";
+import { addMemo } from "../../memo/addmemo.ts";
 import { input } from "@inquirer/prompts";
 
 export const add = async (): Promise<void> => {
@@ -6,5 +6,5 @@ export const add = async (): Promise<void> => {
     message: "ファイル名を入力してください",
   });
 
-  await writeMemo(filename);
+  await addMemo(filename);
 };
