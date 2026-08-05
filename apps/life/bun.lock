@@ -6,10 +6,12 @@
       "name": "life",
       "dependencies": {
         "@inquirer/prompts": "^8.5.2",
+        "calendarize": "^1.1.1",
         "cli-table3": "^0.6.5",
         "commander": "^15.0.0",
         "consola": "^3.4.2",
         "crypto": "^1.0.1",
+        "date-fns": "^4.4.0",
         "open-editor": "^6.0.0",
         "os": "^0.1.2",
         "path": "^0.12.7",
@@ -71,6 +73,8 @@
 
     "bundle-name": ["bundle-name@4.1.0", "", { "dependencies": { "run-applescript": "^7.0.0" } }, "sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q=="],
 
+    "calendarize": ["calendarize@1.1.1", "", {}, "sha512-C2JyBAtNp2NG4DX4fA1EILggLt/5PlYzvQR0crHktoAPBc9TlIfdhzg7tWekCbe+pH6+9qoK+FhPbi+vYJJlqw=="],
+
     "chardet": ["chardet@2.2.0", "", {}, "sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA=="],
 
     "cli-table3": ["cli-table3@0.6.5", "", { "dependencies": { "string-width": "^4.2.0" }, "optionalDependencies": { "@colors/colors": "1.5.0" } }, "sha512-+W/5efTR7y5HRD7gACw9yQjqMVvEMLBHmboM/kPWam+H+Hmyrgjh6YncVKK122YZkXrLudzTuAukUw9FnMf7IQ=="],
@@ -84,6 +88,8 @@
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 
     "crypto": ["crypto@1.0.1", "", {}, "sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig=="],
+
+    "date-fns": ["date-fns@4.4.0", "", {}, "sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w=="],
 
     "default-browser": ["default-browser@5.5.0", "", { "dependencies": { "bundle-name": "^4.1.0", "default-browser-id": "^5.0.0" } }, "sha512-H9LMLr5zwIbSxrmvikGuI/5KGhZ8E2zH3stkMgM5LpOWDutGM2JZaj460Udnf1a+946zc7YBgrqEWwbk7zHvGw=="],
 
