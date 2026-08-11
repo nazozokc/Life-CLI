@@ -8,6 +8,7 @@ export const taskCommand = (program: Command): void => {
 
   task.command("add").action(add);
   task.command("del").action(del);
+  task.command("edit").action(edit);
   task.command("list").action(async () => {
     await taskTable();
   });
