@@ -1,4 +1,5 @@
-import { writeFile } from "node:fs/promise";
+import { join } from "node:path";
+import { openEditor } from "open-editor";
 import { MEMO_DIR } from "../../constant/app.ts";
 
 export const edit = async (filename: string): Promise<void> => {
