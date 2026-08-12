@@ -1,7 +1,12 @@
 {
-  "name": "life",
+  "name": "@nazozokc/life",
   "module": "src/index.ts",
   "type": "module",
+  "version": "0.1.0",
+  "packageManager": "bun@1.3.13",
+  "bin": {
+    "life": "./dist/index.mjs"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
