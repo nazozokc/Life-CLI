@@ -4,6 +4,7 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "bun@1.3.13",
+  "license": "MIT",
   "bin": {
     "life": "./dist/index.mjs"
   },
