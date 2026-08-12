@@ -64,7 +64,9 @@
           # -----------------------------------------------------------------
           # devShell
           # -----------------------------------------------------------------
-          devShells.default = pkgs.mkShell {
+          # mkShellNoCC: コンパイラ不要の shell なので stdenvNoCC を使い、
+          # gcc/binutils 等のダウンロードを避けて direnv の読み込みを高速化する
+          devShells.default = pkgs.mkShellNoCC {
             name = "life-cli";
             packages = with pkgs; [ bun ];
             shellHook = ''
