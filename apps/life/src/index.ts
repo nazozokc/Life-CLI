@@ -1,14 +1,13 @@
-import { Command } from "commander";
+import { cli } from "gunshi";
 import { taskCommand } from "./cli/task/index.ts";
 import { memoCommand } from "./cli/memo/index.ts";
 
-const runCLI = () => {
-  const program = new Command("life").description("CLI management to life");
-
-  taskCommand(program);
-  memoCommand(program);
-
-  program.parse();
+const commands = {
+  task: taskCommand,
+  memo: memoCommand,
 };
 
-runCLI();
+await cli(commands, {
+  name: "life",
+  description: "CLI management to life",
+});
