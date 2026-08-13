@@ -1,7 +1,7 @@
 import type { Command } from "gunshi";
-import { notImplemented } from "../../constant/notImplemented.ts";
 import { add } from "./add.ts";
 import { del } from "./del.ts";
+import { edit } from "./edit.ts";
 
 export const memoCommand: Command = {
   name: "memo",
@@ -15,7 +15,7 @@ export const memoCommand: Command = {
 
     edit: {
       name: "edit",
-      run: notImplemented,
+      run: edit,
     },
 
     del: {

@@ -1,6 +1,7 @@
 import type { Command } from "gunshi";
 import { add } from "./add.ts";
 import { del } from "./del.ts";
+import { edit } from "./edit.ts";
 import { taskTable } from "../../task/table.ts";
 
 const Table = async (): Promise<void> => {
@@ -15,6 +16,11 @@ export const taskCommand: Command = {
     add: {
       name: "add",
       run: add,
+    },
+
+    edit: {
+      name: "edit",
+      run: edit,
     },
 
     del: {

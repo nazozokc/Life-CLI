@@ -21,7 +21,7 @@ export const add = async (): Promise<void> => {
     text,
     date,
     done: false,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
   };
 
   await writeTask(task);
