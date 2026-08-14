@@ -1,6 +1,5 @@
 import { input } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
-import { readTask } from "../../task/readTask.ts";
 import { randomUUID } from "crypto";
 
 export const add = async (): Promise<void> => {
@@ -16,15 +15,14 @@ export const add = async (): Promise<void> => {
     message: "goal date",
   });
 
-  const task = await readTask();
-  task.push({
+  const task = {
     id: randomUUID(),
     head,
     text,
     date,
     done: false,
-    createdAt: new Date(),
-  });
+    createdAt: new Date().toISOString(),
+  };
 
   await writeTask(task);
 };

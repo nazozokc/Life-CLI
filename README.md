@@ -1,1 +1,1 @@
-develop now
+./apps/life/README.md

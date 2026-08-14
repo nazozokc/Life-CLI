@@ -1,16 +1,16 @@
-import { select } from "@inquirer/prompts";
-import consola from "consola";
 import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { TASK_DIR } from "../../constant/app.ts";
-import { deleteTask } from "../../task/deleteTask.ts";
+import { join } from "node:path";
+import { select } from "@inquirer/prompts";
+import openEditor from "open-editor";
+import consola from "consola";
 
-export const del = async (): Promise<void> => {
+export const edit = async (): Promise<void> => {
   try {
-    const dir = await readdir(TASK_DIR);
+    const files = await readdir(TASK_DIR);
     const choices = [];
 
-    for (const file of dir) {
+    for (const file of files) {
       const filepath = join(TASK_DIR, file);
       const content = await readFile(filepath, "utf-8");
       const task = JSON.parse(content);
@@ -22,15 +22,19 @@ export const del = async (): Promise<void> => {
     }
 
     const selected = await select({
-      message: "Select task to delete",
+      message: "Select task to edit",
       choices,
     });
 
     const filePath = join(TASK_DIR, selected);
 
-    await deleteTask(filePath);
-
-    consola.success("delete success!");
+    openEditor([
+      {
+        file: filePath,
+        line: 1,
+        column: 1,
+      },
+    ]);
   } catch (error) {
     consola.error(error);
   }

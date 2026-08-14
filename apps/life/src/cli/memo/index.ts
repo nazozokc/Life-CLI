@@ -1,12 +1,26 @@
-import { Command } from "commander";
-import { notImplemented } from "../../constant/notImplemented.ts";
+import type { Command } from "gunshi";
 import { add } from "./add.ts";
 import { del } from "./del.ts";
+import { edit } from "./edit.ts";
 
-export const memoCommand = (program: Command): void => {
-  const memo = program.command("memo");
+export const memoCommand: Command = {
+  name: "memo",
+  description: "Manage memos",
 
-  memo.command("add").action(add);
-  memo.command("edit").action(notImplemented);
-  memo.command("del").action(del);
+  subCommands: {
+    add: {
+      name: "add",
+      run: add,
+    },
+
+    edit: {
+      name: "edit",
+      run: edit,
+    },
+
+    del: {
+      name: "del",
+      run: del,
+    },
+  },
 };
