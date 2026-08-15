@@ -1,5 +1,5 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { DIARY_DIR } from "../constant/app.js";
+import { DIARY_DIR } from "../constant/app.ts";
 import openEditor from "open-editor";
 import { join } from "node:path";
 
