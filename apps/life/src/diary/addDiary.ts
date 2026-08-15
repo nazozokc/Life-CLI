@@ -8,13 +8,12 @@ export const addNote = async (): Promise<void> => {
 
   const year = String(now.getFullYear());
   const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate());
+  const day = String(now.getDate()).padStart(2, "0");
 
-  const filename = join(DIARY_DIR, year, month, `${year}-${month}-${day}.md`);
+  const diaryDir = join(DIARY_DIR, year, month);
+  const filename = join(diaryDir, `${year}-${month}-${day}.md`);
 
-  const dirname = join(DIARY_DIR, year, month);
-
-  await mkdir(dirname, { recursive: true });
+  await mkdir(diaryDir, { recursive: true });
 
   try {
     await writeFile(filename, "", { flag: "wx" });
