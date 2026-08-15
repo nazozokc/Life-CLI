@@ -3,9 +3,9 @@ import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { edit } from "./edit.ts";
 
-export const memoCommand: Command = {
-  name: "memo",
-  description: "Manage memos",
+export const noteCommand: Command = {
+  name: "note",
+  description: "Manage notes",
 
   subCommands: {
     add: {

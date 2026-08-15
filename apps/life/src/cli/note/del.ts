@@ -1,12 +1,12 @@
 import { checkbox } from "@inquirer/prompts";
-import { deleteMemo } from "../../memo/deletememo.ts";
-import { MEMO_DIR } from "../../constant/app.ts";
+import { deleteNote } from "../../note/deletenote.ts";
+import { NOTE_DIR } from "../../constant/app.ts";
 import { readdir } from "node:fs/promises";
 import { consola } from "consola";
 
 export const del = async (): Promise<void> => {
   try {
-    const dir = await readdir(MEMO_DIR);
+    const dir = await readdir(NOTE_DIR);
     const choices = [];
 
     for (const sel of dir) {
@@ -22,7 +22,7 @@ export const del = async (): Promise<void> => {
     });
 
     for (const file of selected) {
-      await deleteMemo(file);
+      await deleteNote(file);
     }
   } catch (error) {
     consola.error(error);

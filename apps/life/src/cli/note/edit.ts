@@ -1,11 +1,11 @@
-import { MEMO_DIR } from "../../constant/app.ts";
+import { NOTE_DIR } from "../../constant/app.ts";
 import { readdir } from "node:fs/promises";
 import { select } from "@inquirer/prompts";
 import { join } from "node:path";
 import openeditor from "open-editor";
 
 export const edit = async (): Promise<void> => {
-  const dir = await readdir(MEMO_DIR);
+  const dir = await readdir(NOTE_DIR);
   const selected = await select({
     message: "Select to edit memo",
     choices: dir
@@ -18,7 +18,7 @@ export const edit = async (): Promise<void> => {
 
   await openeditor([
     {
-      file: join(MEMO_DIR, selected),
+      file: join(NOTE_DIR, selected),
       line: 1,
       column: 1,
     },

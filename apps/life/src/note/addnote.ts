@@ -1,11 +1,11 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { MEMO_DIR } from "../constant/app.ts";
+import { NOTE_DIR } from "../constant/app.js";
 import openEditor from "open-editor";
 import { join } from "node:path";
 
-export const addMemo = async (filename: string): Promise<void> => {
-  await mkdir(MEMO_DIR, { recursive: true });
-  const path = join(MEMO_DIR, `${filename}.md`);
+export const addNote = async (filename: string): Promise<void> => {
+  await mkdir(NOTE_DIR, { recursive: true });
+  const path = join(NOTE_DIR, `${filename}.md`);
 
   try {
     await writeFile(path, "", { flag: "wx" });
