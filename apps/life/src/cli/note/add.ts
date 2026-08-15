@@ -3,7 +3,7 @@ import { input } from "@inquirer/prompts";
 
 export const add = async (): Promise<void> => {
   const filename = await input({
-    message: "ファイル名を入力してください",
+    message: "Enter a file name",
   });
 
   await addNote(filename);
