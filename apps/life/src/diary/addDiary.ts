@@ -3,7 +3,7 @@ import { DIARY_DIR } from "../constant/app.js";
 import openEditor from "open-editor";
 import { join } from "node:path";
 
-export const addNote = async (): Promise<void> => {
+export const addDiary = async (): Promise<void> => {
   const now = new Date();
 
   const year = String(now.getFullYear());
