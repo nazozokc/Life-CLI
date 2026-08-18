@@ -1,10 +1,10 @@
 import { deleteDiary } from "../../diary/deleteDiary.ts";
 import { DIARY_DIR } from "../../constant/app.ts";
 import { join } from "path";
-import { readFile, access } from "node:fs/promises";
+import { access } from "node:fs/promises";
 import consola from "consola";
 
-export const add = async (day: string): Promise<void> => {
+export const del = async (day: string): Promise<void> => {
   const [year, month, date] = day.split("-");
 
   const filename = join(
