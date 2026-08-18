@@ -22,7 +22,7 @@ export const del = async (): Promise<void> => {
     DIARY_DIR,
     String(year),
     String(month),
-    `${year}${month}${date}.md`,
+    `${year}-${month}-${date}.md`,
   );
 
   try {
