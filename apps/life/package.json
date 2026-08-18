@@ -8,6 +8,9 @@
   "bin": {
     "life": "./dist/index.mjs"
   },
+  "script": {
+    "build": "bunx tsdown"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
