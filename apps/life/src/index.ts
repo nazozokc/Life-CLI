@@ -8,6 +8,7 @@ import { diaryCommand } from "./cli/diary/index.ts";
 const mainCommand = define({
   name: "life",
   description: "A CLI for managing your life",
+  version: "0.1.5",
 });
 
 await cli(process.argv.slice(2), mainCommand, {
