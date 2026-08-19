@@ -1,11 +1,13 @@
 {
   "name": "life-cli",
-  "module": "index.ts",
   "type": "module",
-  "private": true,
   "devDependencies": {
     "@types/bun": "latest"
   },
+  "workspaces": [
+    "docs/*",
+    "apps/*"
+  ],
   "peerDependencies": {
     "typescript": "^5"
   }
