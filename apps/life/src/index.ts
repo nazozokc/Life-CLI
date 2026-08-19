@@ -8,7 +8,7 @@ import { version } from "./version.ts";
 
 const mainCommand = define({
   name: "life",
-  version: version,
+  version: await version(),
   description: "A CLI for managing your life",
 });
 
