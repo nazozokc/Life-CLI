@@ -3,7 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { join } from "path";
 import { consola } from "consola";
 
-export const search = async (search: string): Promise<void> => {
+export const searchindex = async (search: string): Promise<void> => {
   const task = await readdir(TASK_DIR, "utf-8");
 
   for (const task_file of task) {
