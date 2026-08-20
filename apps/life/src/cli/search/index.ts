@@ -7,9 +7,8 @@ export const searchCommand = define({
 
   args: {
     search: {
-      type: "string",
+      type: "positional",
       description: "search",
-      required: true,
     },
   },
 
