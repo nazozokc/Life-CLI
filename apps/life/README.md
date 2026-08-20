@@ -95,8 +95,12 @@ $ life diary add
 
 タスク・メモ・日記からキーワードに一致する内容を検索して表示する。
 
+| コマンド | 説明 |
+| :------- | :--- |
+| `life search string <keyword>` | タスク・メモ・日記を横断してキーワード検索 |
+
 ```bash
-$ life search 牛乳
+$ life search string 牛乳
 /home/user/.life/note/買い物.md
 # 牛乳と卵を買う
 ```
