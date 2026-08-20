@@ -23,6 +23,12 @@
     "LICENSE",
     "README.md"
   ],
+  "keywords": [
+    "cli",
+    "life",
+    "management",
+    "terminal"
+  ],
   "devDependencies": {
     "@types/bun": "latest"
   },
