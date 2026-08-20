@@ -1,20 +1,25 @@
-import { define } from "gunshi";
-import { searchindex } from "../../search/search.ts";
+import type { Command } from "gunshi";
+import { searchString } from "../../search/stringSearch.ts";
 
-export const searchCommand = define({
+export const searchCommand: Command = {
   name: "search",
   description: "search",
 
-  args: {
-    search: {
-      type: "positional",
-      description: "search",
+  subCommands: {
+    string: {
+      name: "string",
+      args: {
+        search: {
+          type: "positional",
+          description: "search",
+        },
+      },
+
+      async run(ctx) {
+        const search = ctx.values.search;
+
+        await searchString(search);
+      },
     },
   },
-
-  async run(ctx) {
-    const search = ctx.values.search;
-
-    await searchindex(search);
-  },
-});
+};
