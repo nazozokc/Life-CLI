@@ -45,12 +45,12 @@ life <command> <subcommand>
 
 タスクは `~/.life/task/*.json` に保存される。
 
-| コマンド | 説明 |
-| :------- | :--- |
-| `life task add` | タスクを追加（見出し・本文・期限を対話的に入力） |
-| `life task edit` | タスクを選択してエディタで編集 |
-| `life task del` | タスクを選択して削除 |
-| `life task list` | タスク一覧をテーブル表示 |
+| コマンド         | 説明                                             |
+| :--------------- | :----------------------------------------------- |
+| `life task add`  | タスクを追加（見出し・本文・期限を対話的に入力） |
+| `life task edit` | タスクを選択してエディタで編集                   |
+| `life task del`  | タスクを選択して削除                             |
+| `life task list` | タスク一覧をテーブル表示                         |
 
 ```bash
 $ life task add
@@ -70,21 +70,21 @@ $ life task list
 
 メモは `~/.life/note/*.md` に保存される。
 
-| コマンド | 説明 |
-| :------- | :--- |
-| `life note add` | ファイル名を入力してメモを作成しエディタで開く |
-| `life note edit` | メモを選択してエディタで編集 |
-| `life note del` | メモを複数選択して削除 |
+| コマンド         | 説明                                           |
+| :--------------- | :--------------------------------------------- |
+| `life note add`  | ファイル名を入力してメモを作成しエディタで開く |
+| `life note edit` | メモを選択してエディタで編集                   |
+| `life note del`  | メモを複数選択して削除                         |
 
 ### diary — 日記
 
 日記は `~/.life/diary/YYYY/MM/YYYY-MM-DD.md` に保存される。
 
-| コマンド | 説明 |
-| :------- | :--- |
-| `life diary add` | 今日の日記を作成しエディタで開く |
-| `life diary edit` | 年・月・日を入力して日記を編集 |
-| `life diary del` | 年・月・日を入力して日記を削除 |
+| コマンド          | 説明                             |
+| :---------------- | :------------------------------- |
+| `life diary add`  | 今日の日記を作成しエディタで開く |
+| `life diary edit` | 年・月・日を入力して日記を編集   |
+| `life diary del`  | 年・月・日を入力して日記を削除   |
 
 ```bash
 $ life diary add
@@ -95,8 +95,8 @@ $ life diary add
 
 タスク・メモ・日記からキーワードに一致する内容を検索して表示する。
 
-| コマンド | 説明 |
-| :------- | :--- |
+| コマンド                       | 説明                                       |
+| :----------------------------- | :----------------------------------------- |
 | `life search string <keyword>` | タスク・メモ・日記を横断してキーワード検索 |
 
 ```bash
@@ -146,15 +146,28 @@ life --version
 Nix flake の devShell を使う。`direnv` を導入していればリポジトリに入るだけで環境が整う。
 
 ```bash
+# direnv を有効化（初回のみ）
+direnv allow
+
 # 依存関係のインストール
 bun install
+
+# 依存を変更したら bun.nix を再生成（Nix ビルド用）
+# bun.nix はリポジトリルートに置く（bun2nix は workspace パッケージを bun.nix からの相対パスで参照する）
+cd .. && bun2nix -l bun.lock -o bun.nix
 
 # ビルド (dist/index.mjs を生成)
 bun run build
 
 # ローカルで実行
 bun run src/index.ts
+
+# フォーマット / チェック
+nix fmt
+nix flake check
 ```
+
+`bun2nix` は devShell に同梱されている。`bun.nix` を再生成したら `nix build` で動作確認すること。
 
 テストは `bun test`。テストファイルは `test/` 以下に置く。
 

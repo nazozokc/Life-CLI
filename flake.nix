@@ -41,17 +41,34 @@
         {
           system,
           self',
+          config,
           ...
         }:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          # .gitignore に従って node_modules などを除外したソース
-          src = pkgs.lib.cleanSource ./apps/life;
+          # ルートの bun.lock / package.json と apps/life だけをソースに含める。
+          # docs は vitepress の依存が bun.lock に含まれず sandbox 内の
+          # オフライン install を壊すため除外する。
+          src = pkgs.lib.cleanSourceWith {
+            src = ./.;
+            filter =
+              path: type:
+              let
+                rel = pkgs.lib.removePrefix (toString ./. + "/") (toString path);
+              in
+              builtins.match "package.json|bun.lock" rel != null
+              || (
+                builtins.match "apps(/life(/.*)?)?" rel != null
+                && builtins.match ".*/node_modules(/.*)?" rel == null
+              );
+          };
           # package.json を唯一のバージョン情報源にする
           version = (pkgs.lib.importJSON ./apps/life/package.json).version;
           bun2nix' = bun2nix.packages.${system}.bun2nix;
           # bun.nix から作った bun 互換キャッシュ（sandbox 内のオフライン install 用）
-          bunDeps = bun2nix'.fetchBunDeps { bunNix = ./apps/life/bun.nix; };
+          # bun.nix はルートの bun.lock から生成する（bun2nix は workspace パッケージを
+          # bun.nix からの相対パスで参照するため、bun.nix はリポジトリルートに置く）
+          bunDeps = bun2nix'.fetchBunDeps { bunNix = ./bun.nix; };
         in
         {
           # -----------------------------------------------------------------
@@ -73,8 +90,26 @@
             dontUseBunBuild = true;
             dontUseBunCheck = true;
 
+            # 依存をすべて bunDeps キャッシュから取得する。
+            # --offline: .npm マニフェストを要求する推移的依存解決を
+            #   registry にフォールバックさせない（sandbox はネットワーク不可）
+            # --frozen-lockfile: ロックファイルの書き換えを禁止
+            #   （src は read-only なので書き込みは EROFS になる）
+            # --linker=isolated: bun2nix の既定値（上書き時に失われるため明示）
+            # NOTE: bunInstallFlagsArray は Nix のリストだと bash 配列として
+            # 復元されず 1 要素扱いになるため、スペース区切りの文字列で渡す
+            # （concatTo がスペース分割して配列に追加する）
+            bunInstallFlags = "--linker=isolated --offline --frozen-lockfile";
+
+            # bun2nix issue #73: fetchBunDeps のキャッシュをコピーすると
+            # read-only になり、bun がリンクを作れず ENOENT で失敗する。
+            # コピー後に書き込み権限を付与する。
+            postBunSetInstallCacheDirPhase = ''
+              chmod -R u+rwx "$BUN_INSTALL_CACHE_DIR"
+            '';
+
             buildPhase = ''
-              bun build ./src/index.ts --outfile ./life.js --target bun
+              bun build ./apps/life/src/index.ts --outfile ./life.js --target bun
             '';
 
             installPhase = ''
@@ -103,6 +138,9 @@
           # -----------------------------------------------------------------
           # checks
           # -----------------------------------------------------------------
+          # nix flake check でパッケージのビルドも検証する
+          checks.build = self'.packages.default;
+
           checks.tests = pkgs.stdenv.mkDerivation {
             pname = "life-tests";
             inherit src version bunDeps;
@@ -114,6 +152,17 @@
 
             dontUseBunBuild = true;
             doCheck = true;
+
+            # パッケージビルドと同じくオフライン install と
+            # キャッシュ権限の修正を行う
+            # NOTE: bunInstallFlagsArray は Nix のリストだと bash 配列として
+            # 復元されず 1 要素扱いになるため、スペース区切りの文字列で渡す
+            # （concatTo がスペース分割して配列に追加する）
+            bunInstallFlags = "--linker=isolated --offline --frozen-lockfile";
+
+            postBunSetInstallCacheDirPhase = ''
+              chmod -R u+rwx "$BUN_INSTALL_CACHE_DIR"
+            '';
 
             # テストファイルが無いと bun test は exit 1 を返すため、
             # 存在する場合のみ実行する（現在 test/ は空）
@@ -154,6 +203,8 @@
             settings.global.excludes = [
               # bun.lock は trailing comma を含む JSON なので prettier 不可
               "apps/life/bun.lock"
+              # bun.nix は bun2nix の生成物なので nixfmt しない
+              "bun.nix"
             ];
           };
         };
