@@ -53,7 +53,7 @@ orbase <command> <subcommand>
 | `orbase task list` | タスク一覧をテーブル表示                         |
 
 ```bash
-$ orbasetask add
+$ orbase task add
 ? task head 買い物
 ? task text 牛乳と卵を買う
 ? goal date 2026-08-21
@@ -100,7 +100,7 @@ $ orbasediary add
 | `orbase search string <keyword>` | タスク・メモ・日記を横断してキーワード検索 |
 
 ```bash
-$ orbasesearch string 牛乳
+$ orbase search string 牛乳
 /home/user/.orbase/note/買い物.md
 # 牛乳と卵を買う
 ```
