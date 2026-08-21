@@ -1,7 +1,40 @@
-import { input } from "@inquirer/prompts";
+import { input, select } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
 import { tagSave, type TagType } from "../../tags/tagSave.ts";
 import { randomUUID } from "crypto";
+import { tagRead } from "../../tags/tagRead.ts";
+
+const tagAction = async (): Promise<TagType> => {
+  const action = await select({
+    message: "create or select?",
+    choices: ["create", "select"],
+  });
+
+  const tags: TagType = [];
+
+  if (action === "create") {
+    const tag = await input({
+      message: "create and select tags",
+    });
+
+    const tagsplit = tag.split(",");
+
+    tags.push(...tagsplit);
+  }
+
+  if (action === "select") {
+    const read = await tagRead();
+
+    const selectcli = await select({
+      message: "select tags",
+      choices: read,
+    });
+
+    tags.push(selectcli);
+  }
+
+  return tags;
+};
 
 export const add = async (): Promise<void> => {
   const title = await input({
@@ -16,9 +49,7 @@ export const add = async (): Promise<void> => {
     message: "goal date",
   });
 
-  const tag = await input({
-    message: "set tags",
-  });
+  const tag = await tagAction();
 
   const task = {
     id: randomUUID(),
@@ -26,13 +57,11 @@ export const add = async (): Promise<void> => {
     text,
     dueDate,
     done: false,
-    tag: tag.split(","),
+    tag,
     createdAt: new Date().toISOString(),
   };
 
   await writeTask(task);
 
-  const tags: TagType = tag.split(",");
-
-  await tagSave(tags);
+  await tagSave(task.tag);
 };
