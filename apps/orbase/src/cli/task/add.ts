@@ -1,5 +1,6 @@
 import { input } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
+import { tagSave } from "../../tags/tagSave.ts";
 import { randomUUID } from "crypto";
 
 export const add = async (): Promise<void> => {
@@ -30,4 +31,6 @@ export const add = async (): Promise<void> => {
   };
 
   await writeTask(task);
+
+  await tagSave(task.tag);
 };
