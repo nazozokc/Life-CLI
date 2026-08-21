@@ -1,5 +1,5 @@
 {
-  "name": "orbase",
+  "name": "@nazozokc/orbase",
   "module": "src/index.ts",
   "type": "module",
   "version": "0.2.0",

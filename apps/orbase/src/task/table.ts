@@ -12,11 +12,17 @@ export const taskTable = async (get?: Task[]): Promise<void> => {
   }
 
   const table = new Table({
-    head: ["head", "text", "date", "done"],
+    head: ["title", "text", "dueDate", "tag", "done"],
   });
 
   for (const task of list) {
-    table.push([task.head, task.text, task.date, String(task.done)]);
+    table.push([
+      task.title,
+      task.text,
+      task.dueDate,
+      task.tag.join(", "),
+      task.done ? "✓" : "",
+    ]);
   }
 
   consola.log(table.toString());

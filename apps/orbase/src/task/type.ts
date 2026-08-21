@@ -1,8 +1,9 @@
 export type Task = {
   id: string;
-  head: string;
+  title: string;
   text: string;
-  date: string;
+  dueDate: string;
   done: boolean;
+  tag: string[];
   createdAt: string;
 };
