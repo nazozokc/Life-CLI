@@ -3,24 +3,29 @@ import { writeTask } from "../../task/writeTask.ts";
 import { randomUUID } from "crypto";
 
 export const add = async (): Promise<void> => {
-  const head = await input({
-    message: "task head",
+  const title = await input({
+    message: "task title",
   });
 
   const text = await input({
     message: "task text",
   });
 
-  const date = await input({
+  const dueDate = await input({
     message: "goal date",
+  });
+
+  const tag = await input({
+    message: "set tags",
   });
 
   const task = {
     id: randomUUID(),
-    head,
+    title,
     text,
-    date,
+    dueDate,
     done: false,
+    tag,
     createdAt: new Date().toISOString(),
   };
 
