@@ -19,6 +19,8 @@ const tagAction = async (): Promise<TagType> => {
 
     const tagsplit = tag.split(",").map((tag) => tag.trim());
 
+    await tagSave(tagsplit);
+
     tags.push(...tagsplit);
   }
 
@@ -62,6 +64,4 @@ export const add = async (): Promise<void> => {
   };
 
   await writeTask(task);
-
-  await tagSave(task.tag);
 };
