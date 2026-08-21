@@ -1,6 +1,16 @@
-import { writeFile } from "node:fs/promises";
+import { writeFile, mkdir } from "node:fs/promises";
 import { ROOT_DIR } from "../constant/app.ts";
+import consola from "consola";
 
-export const tagSave = async (tags: string[]): Promise<void> => {
-  await writeFile(`${ROOT_DIR}/tags.json`, tags, "utf-8");
+export type TagType = string[];
+
+export const tagSave = async (tags: TagType): Promise<void> => {
+  try {
+    await mkdir(ROOT_DIR, { recursive: true });
+    const savetag = JSON.stringify(tags, null, 2);
+    await writeFile(`${ROOT_DIR}/tags.json`, savetag, "utf-8");
+  } catch (error) {
+    consola.error(error);
+    return;
+  }
 };
