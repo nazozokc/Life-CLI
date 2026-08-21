@@ -1,4 +1,4 @@
-import { select } from "@inquirer/prompts";
+import { checkbox } from "@inquirer/prompts";
 import consola from "consola";
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -21,16 +21,18 @@ export const del = async (): Promise<void> => {
       });
     }
 
-    const selected = await select({
+    const selected = await checkbox({
       message: "Select task to delete",
       choices,
     });
 
-    const filePath = join(TASK_DIR, selected);
+    for (const select of selected) {
+      const filePath = join(TASK_DIR, select);
 
-    await deleteTask(filePath);
+      await deleteTask(filePath);
 
-    consola.success("delete success!");
+      consola.success(`${filePath}, delete success!`);
+    }
   } catch (error) {
     consola.error(error);
   }

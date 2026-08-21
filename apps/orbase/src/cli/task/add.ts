@@ -1,4 +1,4 @@
-import { input, select } from "@inquirer/prompts";
+import { input, select, checkbox } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
 import { tagSave, type TagType } from "../../tags/tagSave.ts";
 import { randomUUID } from "crypto";
@@ -25,12 +25,12 @@ const tagAction = async (): Promise<TagType> => {
   if (action === "select") {
     const read = await tagRead();
 
-    const selectcli = await select({
+    const selectcli = await checkbox({
       message: "select tags",
       choices: read,
     });
 
-    tags.push(selectcli);
+    tags.push(...selectcli);
   }
 
   return tags;
