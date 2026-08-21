@@ -17,7 +17,7 @@ const tagAction = async (): Promise<TagType> => {
       message: "create and select tags",
     });
 
-    const tagsplit = tag.split(",");
+    const tagsplit = tag.split(",").map((tag) => tag.trim());
 
     tags.push(...tagsplit);
   }
