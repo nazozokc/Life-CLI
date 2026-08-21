@@ -184,12 +184,24 @@
           # gcc/binutils 等のダウンロードを避けて direnv の読み込みを高速化する
           devShells.default = pkgs.mkShellNoCC {
             name = "life-cli";
-            packages = with pkgs; [
-              bun
-              treefmt
+            packages = [
+              # ランタイム & パッケージマネージャ
+              pkgs.bun
+              # bun.lock から bun.nix を再生成する CLI
+              bun2nix'
+              # プロジェクト設定入り treefmt (nix fmt と同じ挙動)
+              config.formatter
+              # 型チェック & エディタの TS LSP バックエンド (peerDependencies)
+              # bun install 前でもオフラインで tsc を使えるように Nix 側にも用意
+              pkgs.typescript
+              # VCS と GitHub 操作 (PR / release)
+              pkgs.git
+              pkgs.gh
+              # JSON の整形・検索 (bun.lock や json/jsonl データの確認用)
+              pkgs.jq
             ];
             shellHook = ''
-              echo "[devShell:life-cli] bun $(bun --version)"
+              echo "[devShell:life-cli] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version)"
             '';
           };
 
