@@ -1,12 +1,12 @@
 {
-  "name": "@nazozokc/life",
+  "name": "orbase",
   "module": "src/index.ts",
   "type": "module",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "packageManager": "bun@1.3.13",
   "license": "MIT",
   "bin": {
-    "life": "./dist/index.mjs"
+    "orbase": "./dist/index.mjs"
   },
   "scripts": {
     "build": "bunx tsdown"
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nazozokc/Life-CLI.git"
+    "url": "https://github.com/nazozokc/orbase.git"
   },
   "files": [
     "dist",

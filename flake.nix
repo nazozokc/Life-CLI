@@ -1,5 +1,5 @@
 {
-  description = "Life-CLI — Personal CLI tool";
+  description = "orbase — Personal CLI tool";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -46,7 +46,7 @@
         }:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          # ルートの bun.lock / package.json と apps/life だけをソースに含める。
+          # ルートの bun.lock / package.json と apps/orbase だけをソースに含める。
           # docs は vitepress の依存が bun.lock に含まれず sandbox 内の
           # オフライン install を壊すため除外する。
           src = pkgs.lib.cleanSourceWith {
@@ -58,12 +58,12 @@
               in
               builtins.match "package.json|bun.lock" rel != null
               || (
-                builtins.match "apps(/life(/.*)?)?" rel != null
+                builtins.match "apps(/orbase(/.*)?)?" rel != null
                 && builtins.match ".*/node_modules(/.*)?" rel == null
               );
           };
           # package.json を唯一のバージョン情報源にする
-          version = (pkgs.lib.importJSON ./apps/life/package.json).version;
+          version = (pkgs.lib.importJSON ./apps/orbase/package.json).version;
           bun2nix' = bun2nix.packages.${system}.bun2nix;
           # bun.nix から作った bun 互換キャッシュ（sandbox 内のオフライン install 用）
           # bun.nix はルートの bun.lock から生成する（bun2nix は workspace パッケージを
@@ -75,7 +75,7 @@
           # packages
           # -----------------------------------------------------------------
           packages.default = pkgs.stdenv.mkDerivation {
-            pname = "life";
+            pname = "orbase";
             inherit src version bunDeps;
 
             nativeBuildInputs = [
@@ -109,20 +109,20 @@
             '';
 
             buildPhase = ''
-              bun build ./apps/life/src/index.ts --outfile ./life.js --target bun
+              bun build ./apps/orbase/src/index.ts --outfile ./orbase.js --target bun
             '';
 
             installPhase = ''
-              install -Dm755 life.js $out/libexec/life/life.js
-              makeWrapper ${pkgs.bun}/bin/bun $out/bin/life \
-                --add-flags "$out/libexec/life/life.js"
+              install -Dm755 orbase.js $out/libexec/orbase/orbase.js
+              makeWrapper ${pkgs.bun}/bin/bun $out/bin/orbase \
+                --add-flags "$out/libexec/orbase/orbase.js"
             '';
 
             meta = {
               description = "Personal CLI tool for managing life";
-              homepage = "https://github.com/nazozokc/Life-CLI";
+              homepage = "https://github.com/nazozokc/orbase";
               license = pkgs.lib.licenses.mit;
-              mainProgram = "life";
+              mainProgram = "orbase";
               platforms = pkgs.lib.platforms.all;
             };
           };
@@ -142,7 +142,7 @@
           checks.build = self'.packages.default;
 
           checks.tests = pkgs.stdenv.mkDerivation {
-            pname = "life-tests";
+            pname = "orbase-tests";
             inherit src version bunDeps;
 
             nativeBuildInputs = [
@@ -183,7 +183,7 @@
           # mkShellNoCC: コンパイラ不要の shell なので stdenvNoCC を使い、
           # gcc/binutils 等のダウンロードを避けて direnv の読み込みを高速化する
           devShells.default = pkgs.mkShellNoCC {
-            name = "life-cli";
+            name = "orbase";
             packages = [
               # ランタイム & パッケージマネージャ
               pkgs.bun
@@ -201,7 +201,7 @@
               pkgs.jq
             ];
             shellHook = ''
-              echo "[devShell:life-cli] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version)"
+              echo "[devShell:orbase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version)"
             '';
           };
 
@@ -214,7 +214,7 @@
             programs.prettier.enable = true;
             settings.global.excludes = [
               # bun.lock は trailing comma を含む JSON なので prettier 不可
-              "apps/life/bun.lock"
+              "apps/orbase/bun.lock"
               # bun.nix は bun2nix の生成物なので nixfmt しない
               "bun.nix"
             ];
