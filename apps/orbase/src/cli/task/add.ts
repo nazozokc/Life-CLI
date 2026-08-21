@@ -25,7 +25,7 @@ export const add = async (): Promise<void> => {
     text,
     dueDate,
     done: false,
-    tag,
+    tag: tag.split(","),
     createdAt: new Date().toISOString(),
   };
 
